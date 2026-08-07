@@ -1,0 +1,18 @@
+MIN_LENGTH=10
+MAX_LENGTH=50
+MSG=$(head -n1 "$1" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+if [ -z "$MSG" ]; then
+  echo "Commit message cannot be empty."
+  exit 1
+fi
+
+if [ "${#MSG}" -lt "$MIN_LENGTH" ]; then
+  echo "Commit message must be at least $MIN_LENGTH characters (got ${#MSG}: \"$MSG\")."
+  exit 1
+fi
+
+if [ "${#MSG}" -gt "$MAX_LENGTH" ]; then
+  echo "Commit message must be at most $MAX_LENGTH characters (got ${#MSG}: \"$MSG\")."
+  exit 1
+fi
